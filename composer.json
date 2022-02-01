@@ -1,0 +1,21 @@
+{
+    "name": "kolotov/brain-game",
+    "description": "Hexlet study project Brain Games",
+    "type": "project",
+    "autoload": {
+        "psr-4": {
+            "App\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "Georgii Kolotov",
+            "email": "gkolotov.adv@gmail.com"
+        }
+    ],
+    "require": {},
+    "bin": [
+        "bin/brain-games"
+    ],
+    "license": "MIT"
+}
