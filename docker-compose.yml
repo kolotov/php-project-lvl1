@@ -1,0 +1,16 @@
+version: "3.9"
+
+services:
+  php:
+    image: php:8.1.2-cli
+    volumes:
+      - ./:/var/www/site
+    working_dir: /var/www/site
+    entrypoint: ["php"]
+
+  composer:
+    image: composer:latest
+    volumes:
+      - ./:/var/www/site
+    working_dir: /var/www/site
+    entrypoint: ["composer"]
