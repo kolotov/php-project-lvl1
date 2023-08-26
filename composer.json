@@ -13,7 +13,9 @@
             "email": "gkolotov.adv@gmail.com"
         }
     ],
-    "require": {},
+    "require": {
+        "wp-cli/php-cli-tools": "^0.11.19"
+    },
     "bin": [
         "bin/brain-games"
     ],
