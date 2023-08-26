@@ -19,5 +19,8 @@
     "bin": [
         "bin/brain-games"
     ],
-    "license": "MIT"
+    "license": "MIT",
+    "require-dev": {
+        "squizlabs/php_codesniffer": "^3.7"
+    }
 }
