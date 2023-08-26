@@ -1,1 +1,5 @@
-#!/usr/bin/env php
+#!/usr/bin/env docker-compose run php
+<?php
+require_once './vendor/autoload.php';
+require_once './src/Cli.php';
+?>
