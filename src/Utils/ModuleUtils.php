@@ -45,7 +45,7 @@ function getRulesDescription($module): string
 
 function getText($module, $key, $replace_pairs = []): string
 {
-    $texts = $module[LOCATION_TEXTS];
+    $texts = getTexts($module);
     $keys = explode('.', $key);
     $text = array_reduce($keys, fn($tail, $key) => is_array($tail) ? ($tail[$key] ?? '') : $tail, $texts);
     return strtr($text, $replace_pairs);
@@ -60,4 +60,15 @@ function setUserName($module, $userName): array
 function getUserName($module): string
 {
     return $module[LOCATION_DATA][DATA_USER_NAME];
+}
+
+function setTexts($module, $texts): array
+{
+    $module[LOCATION_TEXTS] = $texts;
+    return $module;
+}
+
+function getTexts($module): array
+{
+    return $module[LOCATION_TEXTS];
 }

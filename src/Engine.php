@@ -10,6 +10,7 @@ use function BrainGames\ModuleUtils\getQuestionAnswerPairHandler;
 use function BrainGames\ModuleUtils\getRulesDescription;
 use function BrainGames\ModuleUtils\getText;
 use function BrainGames\ModuleUtils\getUserName;
+use function BrainGames\ModuleUtils\setTexts;
 use function BrainGames\ModuleUtils\setUserName;
 use function cli\line;
 use function cli\prompt;
@@ -31,13 +32,14 @@ function loadGame($moduleName): array
     }
     $module = loadModule($moduleFile);
 
-    $configFile = __DIR__ . '/config.json';
-    if (!file_exists($configFile)) {
-        throw new RuntimeException("Config $configFile not found");
+    $textsFile = __DIR__ . '/texts.json';
+    if (!file_exists($textsFile)) {
+        throw new RuntimeException("Config $textsFile not found");
     }
 
-    $config = loadConfigurations($configFile);
-    return array_replace_recursive($config, $module);
+    $texts = loadConfigurations($textsFile);
+    $module = setTexts($module, $texts);
+    return $module;
 }
 
 function greetUser(array $module): array
