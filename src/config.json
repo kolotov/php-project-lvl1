@@ -1,0 +1,19 @@
+{
+  "texts": {
+    "dialogs": {
+      "welcome": "Welcome to the Brain Game!",
+      "congratulations": "Congratulations, [user_name]!",
+      "greeting": "Hello, [user_name]!",
+      "correct_answer": "Correct!",
+      "incorrect_answer": "'[user_answer]' is wrong answer ;(. Correct answer was '[correct_answer]'.\nLet's try again, [user_name]!"
+    },
+    "prompts": {
+      "answer": "Your answer",
+      "ask_name": "May I have your name?",
+      "question": "Question: [question]"
+    }
+  },
+  "settings": {
+    "attempts": 0
+  }
+}

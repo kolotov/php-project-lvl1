@@ -1,7 +1,8 @@
-#!/usr/bin/env docker-compose run php
+#!/usr/bin/env php
 <?php
+
+use function BrainGames\Cli\demoGreeting;
+
 require_once __DIR__ . '/../src/bootstrap.php';
 
-use function BrainGames\Cli\greeting;
-
-greeting();
+demoGreeting();
