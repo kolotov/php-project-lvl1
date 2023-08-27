@@ -4,7 +4,6 @@ namespace BrainGames\ModuleUtils;
 
 const DATA_USER_NAME = 3010;
 const HANDLER_QUESTION = 100;
-const HANDLER_WIN_CONDITION = 101;
 const LOCATION_DATA = 'data';
 const LOCATION_HANDLERS = 'handlers';
 const LOCATION_SETTINGS = 'settings';
@@ -31,17 +30,6 @@ function setQuestionAnswerPairHandler($module, callable $handler): array
 {
     $module[LOCATION_HANDLERS][HANDLER_QUESTION] = $handler;
     return $module;
-}
-
-function setWinConditionHandler($module, callable $handler): array
-{
-    $module[LOCATION_HANDLERS][HANDLER_WIN_CONDITION] = $handler;
-    return $module;
-}
-
-function getWinConditionHandler(array $module, int $correctAnswers, int $totalQuestions): bool
-{
-    return $module[LOCATION_HANDLERS][HANDLER_WIN_CONDITION]($correctAnswers, $totalQuestions);
 }
 
 function setRulesDescription($module, $rulesDescription): array

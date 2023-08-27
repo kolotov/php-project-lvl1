@@ -1,6 +1,6 @@
 <?php
 
-namespace BrainGames\BrainGame;
+namespace BrainGames\Engine;
 
 use RuntimeException;
 
@@ -10,10 +10,11 @@ use function BrainGames\ModuleUtils\getQuestionAnswerPairHandler;
 use function BrainGames\ModuleUtils\getRulesDescription;
 use function BrainGames\ModuleUtils\getText;
 use function BrainGames\ModuleUtils\getUserName;
-use function BrainGames\ModuleUtils\getWinConditionHandler;
 use function BrainGames\ModuleUtils\setUserName;
 use function cli\line;
 use function cli\prompt;
+
+const ATTEMPT_NUMBER = 3;
 
 function runBrainGame(string $moduleName): void
 {
@@ -24,7 +25,7 @@ function runBrainGame(string $moduleName): void
 
 function loadGame($moduleName): array
 {
-    $moduleFile = __DIR__ . '/Modules/' . $moduleName . '/config.php';
+    $moduleFile = __DIR__ . '/Games/' . $moduleName . '/config.php';
     if (!file_exists($moduleFile)) {
         throw new RuntimeException("Module $moduleFile not found");
     }
@@ -50,10 +51,10 @@ function greetUser(array $module): array
     return $module;
 }
 
-function runGame(array $module, int $questionCounter = 0, int $correctAnswerCounter = 0): void
+function runGame(array $module, int $correctAnswerCounter = 0): void
 {
     $userName = getUserName($module);
-    $questionCounter++;
+
     [$question, $correctAnswer] = getQuestionAnswerPairHandler($module);
     line(getText($module, 'prompts.question', ['[question]' => $question]));
 
@@ -76,11 +77,11 @@ function runGame(array $module, int $questionCounter = 0, int $correctAnswerCoun
     line(getText($module, 'dialogs.correct_answer', ['[user_name]' => $userName]));
 
     /** User Won! End game */
-    $isWin = getWinConditionHandler($module, $correctAnswerCounter, $questionCounter);
+    $isWin = ATTEMPT_NUMBER <= $correctAnswerCounter;
     if ($isWin) {
         line(getText($module, 'dialogs.congratulations', ['[user_name]' => $userName]));
         return;
     }
 
-    runGame($module, $questionCounter, $correctAnswerCounter);
+    runGame($module, $correctAnswerCounter);
 }

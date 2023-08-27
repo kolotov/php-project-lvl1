@@ -12,8 +12,5 @@
       "ask_name": "May I have your name?",
       "question": "Question: [question]"
     }
-  },
-  "settings": {
-    "attempts": 0
   }
 }

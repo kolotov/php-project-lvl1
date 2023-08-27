@@ -7,9 +7,9 @@
       "BrainGames\\": "src/"
     },
     "files": [
-      "src/BrainGame.php",
+      "src/Engine.php",
       "src/Cli.php",
-      "src/Modules/EvenGame/Module.php",
+      "src/Games/EvenGame/Module.php",
       "src/Utils/ConfigUtils.php",
       "src/Utils/ModuleUtils.php"
     ]

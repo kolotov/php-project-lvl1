@@ -1,7 +1,7 @@
 #!/usr/bin/env php
 <?php
 
-use function BrainGames\BrainGame\runBrainGame;
+use function BrainGames\Engine\runBrainGame;
 
 require_once __DIR__ . '/../src/bootstrap.php';
 

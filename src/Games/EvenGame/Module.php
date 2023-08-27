@@ -24,10 +24,3 @@ function questionHandler(): array
     $isEven = $question % 2 === 0;
     return [$question, $isEven ? 'yes' : 'no'];
 }
-
-function winConditionHandler(int $correctAnswers, int $totalQuestions): bool
-{
-    return
-        NUMBER_CORRECT_ANSWERS_FOR_WIN === $correctAnswers and
-        NUMBER_CORRECT_ANSWERS_FOR_WIN === $totalQuestions;
-}
