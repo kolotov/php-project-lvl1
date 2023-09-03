@@ -1,0 +1,9 @@
+#!/usr/bin/env php
+<?php
+
+use function BrainGames\Engine\runBrainGame;
+
+require_once __DIR__ . '/../src/bootstrap.php';
+
+$module = 'ProgressionGame';
+runBrainGame($module);
