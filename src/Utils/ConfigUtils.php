@@ -1,6 +1,6 @@
 <?php
 
-namespace BrainGames\ConfigUtils;
+namespace BrainGames\Utils\ConfigUtils;
 
 function loadConfigurations($configFile): array
 {

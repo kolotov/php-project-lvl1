@@ -9,7 +9,6 @@
     "files": [
       "src/Engine.php",
       "src/Cli.php",
-      "src/Games/EvenGame/Module.php",
       "src/Utils/ConfigUtils.php",
       "src/Utils/ModuleUtils.php"
     ]
@@ -25,7 +24,8 @@
   },
   "bin": [
     "bin/brain-games",
-    "bin/brain-even"
+    "bin/brain-even",
+    "bin/brain-calc"
   ],
   "license": "MIT",
   "require-dev": {

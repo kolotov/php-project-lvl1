@@ -4,14 +4,14 @@ namespace BrainGames\Engine;
 
 use RuntimeException;
 
-use function BrainGames\ConfigUtils\loadConfigurations;
-use function BrainGames\ConfigUtils\loadModule;
-use function BrainGames\ModuleUtils\getQuestionAnswerPairHandler;
-use function BrainGames\ModuleUtils\getRulesDescription;
-use function BrainGames\ModuleUtils\getText;
-use function BrainGames\ModuleUtils\getUserName;
-use function BrainGames\ModuleUtils\setTexts;
-use function BrainGames\ModuleUtils\setUserName;
+use function BrainGames\Utils\ConfigUtils\loadConfigurations;
+use function BrainGames\Utils\ConfigUtils\loadModule;
+use function BrainGames\Utils\ModuleUtils\getQuestionAnswerPairHandler;
+use function BrainGames\Utils\ModuleUtils\getRulesDescription;
+use function BrainGames\Utils\ModuleUtils\getText;
+use function BrainGames\Utils\ModuleUtils\getUserName;
+use function BrainGames\Utils\ModuleUtils\setTexts;
+use function BrainGames\Utils\ModuleUtils\setUserName;
 use function cli\line;
 use function cli\prompt;
 
@@ -26,7 +26,7 @@ function runBrainGame(string $moduleName): void
 
 function loadGame($moduleName): array
 {
-    $moduleFile = __DIR__ . '/Games/' . $moduleName . '/config.php';
+    $moduleFile = __DIR__ . '/Games/' . $moduleName . '.php';
     if (!file_exists($moduleFile)) {
         throw new RuntimeException("Module $moduleFile not found");
     }
