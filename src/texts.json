@@ -1,6 +1,6 @@
 {
   "dialogs": {
-    "welcome": "Welcome to the Brain Game!",
+    "welcome": "Welcome to the Brain Games!",
     "congratulations": "Congratulations, [user_name]!",
     "greeting": "Hello, [user_name]!",
     "correct_answer": "Correct!",
