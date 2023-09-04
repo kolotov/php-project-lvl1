@@ -10,11 +10,14 @@ use const BrainGames\Utils\ModuleUtils\SETTING_RULES;
 return function ($module) {
     $module[LOCATION_SETTINGS][SETTING_RULES] = 'Find the greatest common divisor of given numbers.';
 
-    $module[LOCATION_HANDLERS][HANDLER_QUESTION] = function () {
+    $gcd = function ($a, $b) use (&$gcd) {
+        return $b === 0 ? $a : $gcd($b, $a % $b);
+    };
+
+    $module[LOCATION_HANDLERS][HANDLER_QUESTION] = function () use ($gcd) {
         $firstNum = random_int(1, 100);
         $secondNum = random_int(1, 100);
-
-        $expectedAnswer = gmp_gcd($firstNum, $firstNum);
+        $expectedAnswer = $gcd($firstNum, $firstNum);
         $question = "$firstNum $secondNum";
         return [$question, $expectedAnswer];
     };
