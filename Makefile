@@ -1,17 +1,18 @@
 init:
 	docker-compose up -d --build --remove-orphans
+	make install
 
 install:
-	composer install
+	docker-compose run --rm composer install
 
 validate:
-	composer validate
+	docker-compose run --rm composer validate
 
 refresh:
-	composer dump-autoload
+	docker-compose run --rm composer dump-autoload
 
 lint:
-	composer exec --verbose phpcs -- --standard=PSR12 src bin
+	docker-compose run --rm composer exec --verbose phpcs -- --standard=PSR12 src bin
 
 brain-games:
 	./bin/brain-games
