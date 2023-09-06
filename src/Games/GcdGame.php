@@ -14,9 +14,9 @@ function loader($module): array
 
 function handler(): array
 {
-    $firstNum = random_int(1, 10);
-    $secondNum = random_int(1, 20);
-    $expectedAnswer = gcd($firstNum, $firstNum);
+    $firstNum = random_int(1, 100);
+    $secondNum = random_int(1, 100);
+    $expectedAnswer = gcd($firstNum, $secondNum);
     $question = "$firstNum $secondNum";
     return [$question, $expectedAnswer];
 }
