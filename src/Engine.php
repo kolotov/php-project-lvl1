@@ -2,44 +2,59 @@
 
 namespace BrainGames\Engine;
 
+use JsonException;
 use RuntimeException;
 
-use function BrainGames\Utils\ConfigUtils\loadConfigurations;
-use function BrainGames\Utils\ConfigUtils\loadModule;
 use function BrainGames\Utils\ModuleUtils\getQuestionAnswerPairHandler;
 use function BrainGames\Utils\ModuleUtils\getRulesDescription;
 use function BrainGames\Utils\ModuleUtils\getText;
 use function BrainGames\Utils\ModuleUtils\getUserName;
-use function BrainGames\Utils\ModuleUtils\setTexts;
 use function BrainGames\Utils\ModuleUtils\setUserName;
 use function cli\line;
 use function cli\prompt;
+
+use const BrainGames\Utils\ModuleUtils\LOCATION_TEXTS;
 
 const ATTEMPT_NUMBER = 3;
 
 function runBrainGame(string $moduleName): void
 {
-    $module = loadGame($moduleName);
+    $module = buildGame($moduleName);
+    $module = loadTexts($module);
     $module = greetUser($module);
     runGame($module);
 }
 
-function loadGame($moduleName): array
+function loadTexts($module): array
 {
-    $moduleFile = __DIR__ . '/Games/' . $moduleName . '.php';
-    if (!file_exists($moduleFile)) {
-        throw new RuntimeException("Module $moduleFile not found");
-    }
-    $module = loadModule($moduleFile);
-
     $textsFile = __DIR__ . '/texts.json';
     if (!file_exists($textsFile)) {
         throw new RuntimeException("Config $textsFile not found");
     }
 
-    $texts = loadConfigurations($textsFile);
-    $module = setTexts($module, $texts);
+    try {
+        $texts = json_decode(file_get_contents($textsFile), true, 512, JSON_THROW_ON_ERROR);
+    } catch (JsonException $e) {
+    }
+
+    if (empty($texts)) {
+        throw new RuntimeException("Config $textsFile wasn't loaded");
+    }
+
+    $module[LOCATION_TEXTS] = $texts;
     return $module;
+}
+
+function buildGame($moduleName): array
+{
+    $module = [];
+    $moduleFile = __DIR__ . '/Games/' . $moduleName . '.php';
+    if (!file_exists($moduleFile)) {
+        throw new RuntimeException("Module $moduleFile not found");
+    }
+
+    require_once $moduleFile;
+    return "BrainGames\Games\\$moduleName\loader"($module);
 }
 
 function greetUser(array $module): array

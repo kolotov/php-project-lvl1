@@ -2,13 +2,11 @@
 
 namespace BrainGames\Utils\ModuleUtils;
 
-const DATA_USER_NAME = 3010;
-const HANDLER_QUESTION = 100;
+const DATA_USER_NAME = 'user_name';
+const HANDLER_QUESTION = 'handler';
 const LOCATION_DATA = 'data';
-const LOCATION_HANDLERS = 'handlers';
-const LOCATION_SETTINGS = 'settings';
 const LOCATION_TEXTS = 'texts';
-const SETTING_RULES = 103;
+const SETTING_RULES = 'rules';
 
 /**
  * Returns a question and its expected answer.
@@ -23,12 +21,12 @@ const SETTING_RULES = 103;
  */
 function getQuestionAnswerPairHandler($module): array
 {
-    return $module[LOCATION_HANDLERS][HANDLER_QUESTION]();
+    return $module[HANDLER_QUESTION]();
 }
 
 function getRulesDescription($module): string
 {
-    return $module[LOCATION_SETTINGS][SETTING_RULES];
+    return $module[SETTING_RULES];
 }
 
 function getText($module, $key, $replace_pairs = []): string
@@ -48,12 +46,6 @@ function setUserName($module, $userName): array
 function getUserName($module): string
 {
     return $module[LOCATION_DATA][DATA_USER_NAME];
-}
-
-function setTexts($module, $texts): array
-{
-    $module[LOCATION_TEXTS] = $texts;
-    return $module;
 }
 
 function getTexts($module): array

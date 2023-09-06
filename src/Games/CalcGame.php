@@ -1,35 +1,39 @@
 <?php
 
-namespace BrainGames\Games\EvenGame;
+namespace BrainGames\Games\CalcGame;
+
+use RuntimeException;
 
 use const BrainGames\Utils\ModuleUtils\HANDLER_QUESTION;
-use const BrainGames\Utils\ModuleUtils\LOCATION_HANDLERS;
-use const BrainGames\Utils\ModuleUtils\LOCATION_SETTINGS;
 use const BrainGames\Utils\ModuleUtils\SETTING_RULES;
 
-return function ($module) {
-    $module[LOCATION_SETTINGS][SETTING_RULES] = 'What is the result of the expression?';
-
-    $module[LOCATION_HANDLERS][HANDLER_QUESTION] = function () {
-        $operands = ['*', '+', '-'];
-        $firstNum = random_int(1, 100);
-        $secondNum = random_int(1, 100);
-        $operand = $operands[random_int(0, count($operands) - 1)];
-        switch ($operand) {
-            case '*':
-                $expectedAnswer = $firstNum * $secondNum;
-                break;
-            case '+':
-                $expectedAnswer = $firstNum + $secondNum;
-                break;
-            case '-':
-                $expectedAnswer = $firstNum - $secondNum;
-                break;
-        }
-
-        $question = "$firstNum $operand $secondNum";
-        return [$question, $expectedAnswer];
-    };
-
+function loader($module): array
+{
+    $module[SETTING_RULES] = 'What is the result of the expression?';
+    $module[HANDLER_QUESTION] = static fn() => handler();
     return $module;
-};
+}
+
+function handler(): array
+{
+    $operators = ['*', '+', '-'];
+    $firstNum = random_int(1, 10);
+    $secondNum = random_int(1, 10);
+    $operator = $operators[random_int(0, count($operators) - 1)];
+    switch ($operator) {
+        case '*':
+            $expectedAnswer = $firstNum * $secondNum;
+            break;
+        case '+':
+            $expectedAnswer = $firstNum + $secondNum;
+            break;
+        case '-':
+            $expectedAnswer = $firstNum - $secondNum;
+            break;
+        default:
+            throw new RuntimeException('Incorrect operator');
+    }
+
+    $question = "$firstNum $operator $secondNum";
+    return [$question, $expectedAnswer];
+}

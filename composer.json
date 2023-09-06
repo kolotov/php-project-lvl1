@@ -9,7 +9,6 @@
     "files": [
       "src/Engine.php",
       "src/Cli.php",
-      "src/Utils/ConfigUtils.php",
       "src/Utils/ModuleUtils.php"
     ]
   },
