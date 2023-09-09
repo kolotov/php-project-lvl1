@@ -33,12 +33,12 @@ function loadTexts(array $module): array
     }
 
     try {
-        $content = file_get_contents($textsFile);
-        $texts = $content ? json_decode($content, true, 512, JSON_THROW_ON_ERROR) : '';
+        $content = (string)file_get_contents($textsFile);
+        $texts = json_decode($content, true, 512, JSON_THROW_ON_ERROR);
     } catch (JsonException $e) {
     }
 
-    $isEmptyConfig = !isset($texts) || !$texts;
+    $isEmptyConfig = !isset($texts) || $texts === '';
     if ($isEmptyConfig) {
         throw new RuntimeException("Config $textsFile wasn't loaded");
     }
@@ -56,7 +56,8 @@ function buildGame(string $moduleName): array
     }
 
     require_once $moduleFile;
-    return "BrainGames\Games\\$moduleName\loader"($module);
+    $loader = "BrainGames\Games\\$moduleName\loader";
+    return is_callable($loader) ? $loader($module) : [];
 }
 
 function greetUser(array $module): array
