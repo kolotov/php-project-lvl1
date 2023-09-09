@@ -16,7 +16,7 @@ const SETTING_RULES = 'rules';
  *
  * @return array{
  *     0: string,
- *     1: string
+ *     1: mixed
  * }
  */
 function getQuestionAnswerPairHandler(array $module): array

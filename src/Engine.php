@@ -77,7 +77,7 @@ function runGame(array $module, int $correctAnswerCounter = 0): void
     [$question, $correctAnswer] = getQuestionAnswerPairHandler($module);
     line(getText($module, 'prompts.question', ['[question]' => $question]));
     $userAnswer = prompt(getText($module, 'prompts.answer'));
-    $isValidAnswer = $correctAnswer === $userAnswer;
+    $isValidAnswer = (string)$correctAnswer === $userAnswer;
 
     /** Game over */
     if (!$isValidAnswer) {
