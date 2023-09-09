@@ -25,7 +25,7 @@ function runBrainGame(string $moduleName): void
     runGame($module);
 }
 
-function loadTexts($module): array
+function loadTexts(array $module): array
 {
     $textsFile = __DIR__ . '/texts.json';
     if (!file_exists($textsFile)) {
@@ -33,11 +33,13 @@ function loadTexts($module): array
     }
 
     try {
-        $texts = json_decode(file_get_contents($textsFile), true, 512, JSON_THROW_ON_ERROR);
+        $content = file_get_contents($textsFile);
+        $texts = $content ? json_decode($content, true, 512, JSON_THROW_ON_ERROR) : '';
     } catch (JsonException $e) {
     }
 
-    if (empty($texts)) {
+    $isEmptyConfig = !isset($texts) || !$texts;
+    if ($isEmptyConfig) {
         throw new RuntimeException("Config $textsFile wasn't loaded");
     }
 
@@ -45,7 +47,7 @@ function loadTexts($module): array
     return $module;
 }
 
-function buildGame($moduleName): array
+function buildGame(string $moduleName): array
 {
     $module = [];
     $moduleFile = __DIR__ . '/Games/' . $moduleName . '.php';
@@ -60,7 +62,7 @@ function buildGame($moduleName): array
 function greetUser(array $module): array
 {
     line(getText($module, 'dialogs.welcome'));
-    $userName = prompt(getText($module, 'prompts.ask_name') . ' ', false, '');
+    $userName = prompt(getText($module, 'prompts.ask_name') . ' ', '', '');
     $module = setUserName($module, $userName);
 
     line(getText($module, 'dialogs.greeting', ['[user_name]' => $userName]));
@@ -74,9 +76,8 @@ function runGame(array $module, int $correctAnswerCounter = 0): void
 
     [$question, $correctAnswer] = getQuestionAnswerPairHandler($module);
     line(getText($module, 'prompts.question', ['[question]' => $question]));
-
     $userAnswer = prompt(getText($module, 'prompts.answer'));
-    $isValidAnswer = (string)$correctAnswer === $userAnswer;
+    $isValidAnswer = $correctAnswer === $userAnswer;
 
     /** Game over */
     if (!$isValidAnswer) {

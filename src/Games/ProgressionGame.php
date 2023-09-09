@@ -5,7 +5,7 @@ namespace BrainGames\Games\ProgressionGame;
 use const BrainGames\Utils\ModuleUtils\HANDLER_QUESTION;
 use const BrainGames\Utils\ModuleUtils\SETTING_RULES;
 
-function loader($module): array
+function loader(array $module): array
 {
     $module[SETTING_RULES] = 'What number is missing in the progression?';
     $module[HANDLER_QUESTION] = static fn() => handler();

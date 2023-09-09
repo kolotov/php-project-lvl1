@@ -5,7 +5,7 @@ namespace BrainGames\Games\PrimeGame;
 use const BrainGames\Utils\ModuleUtils\HANDLER_QUESTION;
 use const BrainGames\Utils\ModuleUtils\SETTING_RULES;
 
-function loader($module): array
+function loader(array $module): array
 {
     $module[SETTING_RULES] = 'Answer "yes" if given number is prime. Otherwise answer "no".';
     $module[HANDLER_QUESTION] = static fn() => handler();
@@ -19,7 +19,7 @@ function handler(): array
     return [$question, $isPrime ? 'yes' : 'no'];
 }
 
-function isPrime($number): bool
+function isPrime(int $number): bool
 {
     if ($number <= 1) {
         return false;

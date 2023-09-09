@@ -5,7 +5,7 @@ namespace BrainGames\Games\GcdGame;
 use const BrainGames\Utils\ModuleUtils\HANDLER_QUESTION;
 use const BrainGames\Utils\ModuleUtils\SETTING_RULES;
 
-function loader($module): array
+function loader(array $module): array
 {
     $module[SETTING_RULES] = 'Find the greatest common divisor of given numbers.';
     $module[HANDLER_QUESTION] = static fn() => handler();
@@ -21,7 +21,7 @@ function handler(): array
     return [$question, $expectedAnswer];
 }
 
-function gcd($a, $b): int
+function gcd(int $a, int $b): int
 {
     return $b === 0 ? $a : gcd($b, $a % $b);
 }
